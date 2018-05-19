@@ -12,7 +12,18 @@
                 </div>
                 
                 <div class="panel-body">
-                    @include('search')
+                    <div>
+                        crear un nuevo Usuario  
+                        <a class="btn btn-primary" href="{{ route('client.create') }}">
+                            Nuevo usuario
+
+                        </a>
+                    </div>
+                    <br>
+                   <div>
+                        @include('search')
+                   </div>
+                   
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover table-condensed" >
                             <thead>
@@ -41,7 +52,12 @@
                                     <td>{{ $client->celular }}</td>
                                     <td>{{ $client->latitude }}</td>
                                     <td>{{ $client->longitude }}</td>
-                                    <td></td>
+                                    <td>
+                                        <div class="row">
+                                        <a class="btn btn-info" href="/maptable/{{ $client->id }}/edit">Editar</a>
+                                        <a class="btn btn-danger" href="/maptable/borrar/{{ $client->id }}">X</a>
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endforeach
                                 <tr>
