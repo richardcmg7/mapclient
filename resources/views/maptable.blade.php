@@ -53,7 +53,7 @@
                                     <td>{{ $client->longitude }}</td>
                                     <td>
                                         <div class="row">
-                                        <a class="btn btn-info" href="/maptable/{{ $client->id }}/edit">Editar</a>
+                                        <a class="btn btn-info" href="{{ route('edit_maptable', ['client' =>$client->id]) }}">Editar</a>
                                         <form class="" action="{{ route('delete_client_path', ['client' =>$client->id])}}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE')}}
