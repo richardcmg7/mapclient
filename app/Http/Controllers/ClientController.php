@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\client;
 use DB;
@@ -18,7 +19,7 @@ class ClientController extends Controller
 
         $this->middleware('auth');
     }
-    
+
 
     public function index(Request $request)
     {
@@ -32,14 +33,18 @@ class ClientController extends Controller
 
         return view('maptable')->with(compact('clients','query'));
     }
-    function delete($id){
+
+
+    public function delete($client){
         //$client = client::find($id)->delete();
-        client::destroy($id);
+
+       client::destroy($client);
+         session()->flash('message','Usuario eliminado');
 
         return redirect()->route('datos');
     }
-    
-    
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -48,7 +53,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('client.create');
+        $client = new Client;
+        return view('client.create')->with(['client' =>$client]);
     }
 
     /**
@@ -59,6 +65,23 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+      $rules = [
+          'name' => 'required|string|max:100',
+          'direccion_full' => 'required|string|max:200',
+          'direccion' => 'required|string|min:6'
+
+    ];
+
+    $messages = [
+      'name.required' => 'Es necesario ingresar el nombre del Usuario',
+      'name.max' => 'El nombre es demasiado extenso',
+      'direccion.required' => 'Debes Ingresar una dirección',
+      'direccion.min' => 'Debes ingresar una dirección mayor a 6 Caracteres'
+
+    ];
+
+    $this->validate($request, $rules, $messages);
+
         $client = new client();
         $client->name = $request->input('name');
         $client->direccion_full = $request->input('direccion_full');
@@ -74,6 +97,8 @@ class ClientController extends Controller
         $client->longitude = $request->input('longitude');
 
         $client->save();
+
+        session()->flash('message','Has creado con exito un Usuario');
 
         return redirect()->route('datos');
 
@@ -102,7 +127,7 @@ class ClientController extends Controller
         $client = client::find($id);
 
         return view('client.edit', compact('client'));
-        
+
     }
 
     /**
@@ -114,6 +139,23 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+      $rules = [
+          'name' => 'required|string|max:100',
+          'direccion_full' => 'required|string|max:200',
+          'direccion' => 'required|string|min:6'
+
+    ];
+
+    $messages = [
+      'name.required' => 'Es necesario ingresar el nombre del Usuario',
+      'name.max' => 'El nombre es demasiado extenso',
+      'direccion.required' => 'Debes Ingresar una dirección',
+      'direccion.min' => 'Debes ingresar una dirección mayor a 6 Caracteres'
+
+    ];
+
+    $this->validate($request, $rules, $messages);
+
         $client = client::find($id);
         $client->name = $request->input('name');
         $client->direccion_full = $request->input('direccion_full');
@@ -129,7 +171,7 @@ class ClientController extends Controller
         $client->longitude = $request->input('longitude');
 
         $client->save();
-
+        session()->flash('message','Has editado con exito el Usuario');
          return redirect()->route('datos');
 
     }
@@ -140,5 +182,5 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
 }

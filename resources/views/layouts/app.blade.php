@@ -9,12 +9,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>GEO</title>
-   
+
 
     <!-- Styles -->
         <!-- <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.css"-> -->
         <!-- <link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.css"> -->
-     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> 
+     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
      @yield('head')
 </head>
 <body>
@@ -40,7 +40,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                       
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -76,13 +76,15 @@
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3"> 
+                <div class="col-md-3">
                   @include('includes.menu')
                 </div>
                 <div class="col-md-9">
+                  @include('layouts._errors')
+                  @include('layouts._messages')
                   @yield('content')
                 </div>
-                
+
             </div>
         </div>
 
@@ -95,7 +97,7 @@
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
       crossorigin="anonymous"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-    
+
     @yield('scripts')
 </body>
 </html>

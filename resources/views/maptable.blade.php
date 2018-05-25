@@ -8,14 +8,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading" align="center"> Sistema de Georeferenciacion 
+                <div class="panel-heading" align="center"> Listado de Usuarios a Cargo
                 </div>
-                
+
                 <div class="panel-body">
                     <div>
-                        crear un nuevo Usuario  
-                        <a class="btn btn-primary" href="{{ route('client.create') }}">
-                            Nuevo usuario
+                      <a class="btn btn-primary" href="{{ route('client.create') }}">
+                            Crear Nuevo usuario
 
                         </a>
                     </div>
@@ -23,7 +22,7 @@
                    <div>
                         @include('search')
                    </div>
-                   
+
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped table-hover table-condensed" >
                             <thead>
@@ -55,7 +54,12 @@
                                     <td>
                                         <div class="row">
                                         <a class="btn btn-info" href="/maptable/{{ $client->id }}/edit">Editar</a>
-                                        <a class="btn btn-danger" href="/maptable/borrar/{{ $client->id }}">X</a>
+                                        <form class="" action="{{ route('delete_client_path', ['client' =>$client->id])}}" method="POST">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE')}}
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                        </form>
+                                        <!-- <a class="btn btn-danger" href="/maptable/borrar/{{ $client->id }}">X</a> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -64,10 +68,10 @@
                                     <td colspan="10">
                                         {{ $clients->links()}}
                                     </td>
-                                   
+
                                 </tr>
-                                
-                                
+
+
                             </tbody>
                         </table>
                    </div>
@@ -76,7 +80,7 @@
         </div>
     </div>
 </div>
-       
+
 
 
 @endsection
